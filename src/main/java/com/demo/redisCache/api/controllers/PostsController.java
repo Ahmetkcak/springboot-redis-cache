@@ -2,7 +2,10 @@ package com.demo.redisCache.api.controllers;
 
 import com.demo.redisCache.business.abstracts.PostService;
 import com.demo.redisCache.entities.Post;
+import com.demo.redisCache.entities.dtos.PageDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +39,10 @@ public class PostsController {
     @GetMapping("/getById/{id}")
     public Post getById(@PathVariable int id) {
         return postService.getById(id);
+    }
+
+    @GetMapping("/getAllWithPagination")
+    public PageDto<Post> getAllWithPagination(@RequestParam int page, @RequestParam int size) {
+        return postService.getAllWithPagination(PageRequest.of(page, size));
     }
 }
