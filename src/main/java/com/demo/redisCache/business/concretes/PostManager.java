@@ -44,8 +44,8 @@ public class PostManager implements PostService {
         return postRepository.save(post);
     }
 
+    @CachePut(value = "posts", key = "#post.id")
     @CacheEvict(value = "posts", allEntries = true)
-    //@CachePut(value = "posts", key = "#post.id") is not used here because it only updates the cache for the specific post but does not refresh the cache for the entire list of posts.
     @Override
     public Post update(Post post) {
         return postRepository.save(post);
